@@ -8,6 +8,8 @@ public class MovementScaler : MonoBehaviour
     private Crouch Crouch;
     private Rigidbody Rigidbody;
     public float scale=1;
+    public float jumpMultiplier=1;
+    public GameObject GayObject;
     
     
     
@@ -17,7 +19,7 @@ public class MovementScaler : MonoBehaviour
         movment = GetComponent<FirstPersonMovement>();
         Jump = GetComponent<Jump>();
         Crouch = GetComponent<Crouch>();
-        Rigidbody = GetComponent<Rigidbody>(); 
+        Rigidbody = GetComponent<Rigidbody>();
     }
         // Update is called once per frame
     void Update()
@@ -25,8 +27,12 @@ public class MovementScaler : MonoBehaviour
         transform.localScale = new Vector3(scale, scale, scale);
         movment.speed = 5*scale;
         movment.runSpeed = 9*scale; 
-        Jump.jumpStrength = 2*scale;
+        Jump.jumpStrength = 1+scale*jumpMultiplier;
         Crouch.movementSpeed = 2*scale;
-        //Rigidbody.mass = 1*scale;
+        Rigidbody.mass = 1+scale/12;
+        if(Input.GetKeyDown(KeyCode.F) )
+        {
+            Instantiate<GameObject>(GayObject,transform.position+ new Vector3(1,0,2),new Quaternion());
+        }
     }
 }

@@ -22,7 +22,7 @@ public class ButtonPress : MonoBehaviour
     {
         if (Physics.CheckSphere(transform.localPosition, sphereRadius))
         {
-            Debug.Log("Deez Nutz");
+            //Debug.Log("Deez Nutz");
             
         }
     }
@@ -33,7 +33,7 @@ public class ButtonPress : MonoBehaviour
         {
 
             transform.localPosition = pushEndDistance;
-            Debug.Log("Ligma balls");
+            //Debug.Log("Ligma balls");
              
             scaler.scale = scaler.scale+ sizeAmount;
 
@@ -43,7 +43,7 @@ public class ButtonPress : MonoBehaviour
         else
         {
             transform.localPosition = originalPos;
-            Debug.Log("Yo Mama is so fat.");
+            //Debug.Log("Yo Mama is so fat.");
         }
     }
 
