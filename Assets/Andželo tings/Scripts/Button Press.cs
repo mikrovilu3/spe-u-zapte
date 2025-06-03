@@ -34,10 +34,8 @@ public class ButtonPress : MonoBehaviour
 
             transform.localPosition = pushEndDistance;
             Debug.Log("Ligma balls");
-             
-            scaler.scale = scaler.scale+ sizeAmount;
 
-
+            scaler.scale = Mathf.Clamp(scaler.scale + sizeAmount, 0.1f,100f) ;
 
         }
         else
