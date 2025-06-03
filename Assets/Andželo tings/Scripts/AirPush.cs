@@ -1,33 +1,34 @@
 using UnityEngine;
-
 public class AirPush : MonoBehaviour
 {
-    LayerMask layerMask = LayerMask.GetMask("PhysicsItem", "Player");
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float pushForce = 10f;
+    public float maxPushDistance = 5f;
+
+    private LayerMask layerMask;
+
+    void Awake()
     {
-        
+        layerMask = LayerMask.GetMask("PhysicsItem", "Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, maxPushDistance, layerMask))
         {
-
-            transform.localPosition = pushAmount;
-            Debug.Log("Skibidi");
+            Debug.Log("FanumTax");
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
+            Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector3 pushDirection = transform.forward;
+                rb.AddForce(pushDirection * pushForce, ForceMode.Force);
+            }
         }
         else
         {
-            transform.localPosition = originalPos;
-            Debug.Log("Yo Mama is so Skinny.");
-
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * maxPushDistance, Color.white);
         }
     }
 }
