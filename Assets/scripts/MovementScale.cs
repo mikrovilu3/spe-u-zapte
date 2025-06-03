@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class movmentScaler : MonoBehaviour
+public class MovementScaler : MonoBehaviour
 {
     private FirstPersonMovement movment;
     private Jump Jump;
