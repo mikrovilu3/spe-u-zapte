@@ -65,7 +65,7 @@ namespace Seagull.Interior_01.Utility.Inspector {
                 }
                 
                 // 绘制当前值的输入框或其他交互框
-                if (field.GetCustomAttribute<IgnoreInInspectorAttribute>() == null)
+                if (field.GetCustomAttribute<HideInInspector>() == null)
                     EditorGUILayout.PropertyField(prop, true);
             }
             
