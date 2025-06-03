@@ -9,7 +9,7 @@ public class MovementScaler : MonoBehaviour
     private Rigidbody Rigidbody;
     public float scale=1;
     public float jumpMultiplier=1;
-    public GameObject GayObject;
+
     
     
     
@@ -30,9 +30,6 @@ public class MovementScaler : MonoBehaviour
         Jump.jumpStrength = 1+scale*jumpMultiplier;
         Crouch.movementSpeed = 2*scale;
         Rigidbody.mass = 1+scale/12;
-        if(Input.GetKeyDown(KeyCode.F) )
-        {
-            Instantiate<GameObject>(GayObject,transform.position+ new Vector3(1,0,2),new Quaternion());
-        }
+        
     }
 }
