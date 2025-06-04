@@ -9,7 +9,7 @@ public class CoffyDrink : MonoBehaviour
     public float jumpAmount;
     public MovementScaler scaler;
     private Vector3 originalpos; 
-    private float originalscale;    
+    private float originaljump;    
     void Start()
     {
         scaler = GameObject.Find("First Person Controller").GetComponent<MovementScaler>();
@@ -43,7 +43,7 @@ public class CoffyDrink : MonoBehaviour
         {
             //Debug.Log(scaler.scale + "  " + (scaler.scale + sizeAmount));
             //scaler.scale = scaler.scale+ sizeAmount;
-            originalscale = scaler.scale;
+            originaljump = scaler.jumpMultiplier;
             i = 0;
             GetComponent<MeshRenderer>().enabled = false;
             Invoke(nameof(GROW), 0.1f);
@@ -54,7 +54,8 @@ public class CoffyDrink : MonoBehaviour
     private void GROW()
     {
         i = i+ 0.1f;
-        scaler.jumpMultiplier =Mathf.Lerp(originalscale,originalscale+jumpAmount,i);
+        scaler.jumpMultiplier =Mathf.Lerp(originaljump,originaljump +jumpAmount,i);
+        Debug.Log("sogme boi"+ scaler.jumpMultiplier +" "+ Mathf.Lerp(originaljump, originaljump + jumpAmount, i));
         if (i > 1)
         {
             Destroy(gameObject);
