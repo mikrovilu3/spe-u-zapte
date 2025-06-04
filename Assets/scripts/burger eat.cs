@@ -18,22 +18,12 @@ public class BurgerEat : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-
-
-
+     
             i = 0;
             Invoke(nameof(EAT),0.1f);
             originalpos = transform.position;
             GetComponent<Collider>().enabled = false;
 
-        }
-        else
-        {
-
-
-        }
     }        float i ;
     private void EAT (){
 
