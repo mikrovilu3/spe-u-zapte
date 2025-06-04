@@ -34,11 +34,12 @@ public class CoffyDrink : MonoBehaviour
         else if (isInRange)
         {
             Textu.text = "press E to drink";
-
+            Debug.Log("tool"+isInRange);
         }
         else
         {
             Textu.text = "";
+            Debug.Log("nooo"+isInRange);
         }
 
     }        float i ;
@@ -50,25 +51,15 @@ public class CoffyDrink : MonoBehaviour
         {
             //Debug.Log(scaler.scale + "  " + (scaler.scale + sizeAmount));
             //scaler.scale = scaler.scale+ sizeAmount;
-            originaljump = scaler.jumpMultiplier;
-            i = 0;
-            GetComponent<MeshRenderer>().enabled = false;
-            Invoke(nameof(GROW), 0.1f);
+            scaler.jumpMultiplier = scaler.jumpMultiplier + jumpAmount;
+            transform.position = originalpos;
+            Destroy(this);
+            
         }
         else { Invoke(nameof(EAT), 0.1f); }
         
     }
-    private void GROW()
-    {
-        i = i+ 0.1f;
-        scaler.jumpMultiplier =Mathf.Lerp(originaljump,originaljump +jumpAmount,i);
-        Debug.Log("sogme boi"+ scaler.jumpMultiplier +" "+ Mathf.Lerp(originaljump, originaljump + jumpAmount, i));
-        if (i > 1)
-        {
-            Destroy(gameObject);
-        }
-        else { Invoke(nameof(GROW), 0.1f); }
-    }
+    
     private void OnTriggerEnter(Collider other)
     {
         isInRange = true;
