@@ -2,18 +2,17 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class BurgerEat : MonoBehaviour
+public class CoffyDrink : MonoBehaviour
 {
 
 
-    public float sizeAmount;
+    public float jumpAmount;
     public MovementScaler scaler;
     private Vector3 originalpos; 
     private float originalscale;    
     void Start()
     {
         scaler = GameObject.Find("First Person Controller").GetComponent<MovementScaler>();
-
     }
 
 
@@ -39,7 +38,7 @@ public class BurgerEat : MonoBehaviour
     private void EAT (){
 
         i = i+ 0.1f;
-        transform.position = Vector3.Lerp(originalpos, scaler.gameObject.transform.GetChild(0).position - new Vector3(0, -1, 0), i);
+        transform.position = Vector3.Lerp(originalpos, scaler.gameObject.transform.GetChild(0).position-new Vector3(0,-1,0), i);
         if (i > 1)
         {
             //Debug.Log(scaler.scale + "  " + (scaler.scale + sizeAmount));
@@ -55,7 +54,7 @@ public class BurgerEat : MonoBehaviour
     private void GROW()
     {
         i = i+ 0.1f;
-        scaler.scale =Mathf.Lerp(originalscale,originalscale+sizeAmount,i);
+        scaler.jumpMultiplier =Mathf.Lerp(originalscale,originalscale+jumpAmount,i);
         if (i > 1)
         {
             Destroy(gameObject);

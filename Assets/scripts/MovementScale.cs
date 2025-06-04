@@ -14,8 +14,8 @@ public class MovementScaler : MonoBehaviour
     
     
     
-    public GameObject text2;
-    public TMPro.TextMeshProUGUI sizeText;
+    //public GameObject text2;
+   // public TMPro.TextMeshProUGUI sizeText;
     public float sizeCounter = 1f;
 
 
@@ -28,10 +28,10 @@ public class MovementScaler : MonoBehaviour
         Crouch = GetComponent<Crouch>();
         Rigidbody = GetComponent<Rigidbody>();
     }
-    void Start() 
-    {
-        sizeText = text2.GetComponent<TextMeshProUGUI>();
-    }
+   //void Start() 
+   // {
+     //   sizeText = text2.GetComponent<TextMeshProUGUI>();
+  //  }
     // Update is called once per frame
     void Update()
     {
@@ -40,9 +40,6 @@ public class MovementScaler : MonoBehaviour
         movment.runSpeed = 9*scale; 
         Jump.jumpStrength = 2*scale;
         Crouch.movementSpeed = 2*scale;
-        //Rigidbody.mass = 1*scale;
-
-        sizeText.text = "Size:" + scale.ToString();
         Rigidbody.mass = 1+scale/12;
         
     }
