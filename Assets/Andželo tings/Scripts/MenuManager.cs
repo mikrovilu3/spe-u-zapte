@@ -140,17 +140,9 @@ public class MenuManager : MonoBehaviour
             PauseMenu.SetActive(true);
         }
         else { }
-  
-        cam.isInMenu = inMenu!;
 
-        if (inMenu == true)
-        {
-            cam.disable;
-        }
-        else 
-        {
-            cam.enable; 
-        }
+        cam.isInMenu = inMenu!;
+        
 
 
 
