@@ -21,9 +21,10 @@ public class FirstPersonLook : MonoBehaviour
     void Start()
     {
         if (isInMenu) return;
+        if(isInMenu!) { 
         // Lock the mouse cursor to the game screen.
         Cursor.lockState = CursorLockMode.Locked;
-    }
+    }}
 
     void Update()
     {
