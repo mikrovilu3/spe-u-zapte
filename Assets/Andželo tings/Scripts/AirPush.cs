@@ -1,8 +1,9 @@
 using UnityEngine;
 public class AirPush : MonoBehaviour
 {
-    public float pushForce = 10f;
-    public float maxPushDistance = 5f;
+    public Rigidbody m_Rigidbody;
+    public float m_Thrust = 20f;
+    
 
     private LayerMask layerMask;
 
@@ -10,25 +11,16 @@ public class AirPush : MonoBehaviour
     {
         layerMask = LayerMask.GetMask("PhysicsItem", "Player");
     }
-
-    void Update()
+    void Start() 
     {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, maxPushDistance, layerMask))
-        {
-            Debug.Log("FanumTax");
+        
 
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
-            Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                Vector3 pushDirection = transform.forward;
-                rb.AddForce(pushDirection * pushForce, ForceMode.Force);
-            }
-        }
-        else
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * maxPushDistance, Color.white);
-        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //m_Rigidbody.AddForce(transform.up * m_Thrust);
+        other.GetComponent<Rigidbody>().AddForce(transform.up * m_Thrust);
     }
 }
