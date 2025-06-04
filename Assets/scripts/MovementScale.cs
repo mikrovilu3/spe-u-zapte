@@ -16,7 +16,7 @@ public class MovementScaler : MonoBehaviour
     
     //public GameObject text2;
    // public TMPro.TextMeshProUGUI sizeText;
-    public float sizeCounter = 1f;
+    
 
 
 
