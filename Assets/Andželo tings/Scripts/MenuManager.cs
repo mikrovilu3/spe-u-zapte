@@ -43,6 +43,10 @@ public class MenuManager : MonoBehaviour
 
         if (backToStartMenuButton != null)
             backToStartMenuButton.onClick.AddListener(BackToStartMenu);
+        
+        if (backToMainMenuButton != null)
+            backToMainMenuButton.onClick.AddListener(BackToMainMenu);
+
         if (backToGameButton != null)
             backToGameButton.onClick.AddListener(BackToGame);
 
@@ -64,6 +68,10 @@ public class MenuManager : MonoBehaviour
     public void BackToStartMenu()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+    public void BackToMainMenu()
+    {
+        onSettings = false;
     }
 
     public void UpdateFOV(float value)
@@ -142,6 +150,14 @@ public class MenuManager : MonoBehaviour
         else { }
 
         cam.isInMenu = inMenu!;
+       //if (!inMenu == true)
+       // {
+       //     cam.enabled = true;
+       // }
+//else/ 
+        //{ 
+           // cam.enabled = false;
+       // }
         
 
 
