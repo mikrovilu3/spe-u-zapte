@@ -20,13 +20,20 @@ public class FirstPersonLook : MonoBehaviour
 
     void Start()
     {
-        if (isInMenu) return;
-        // Lock the mouse cursor to the game screen.
-        Cursor.lockState = CursorLockMode.Locked;
+      
     }
 
     void Update()
     {
+        if (isInMenu)
+        {
+            Cursor.lockState = CursorLockMode.Confined; // Confined when in menu
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked; // Locked when not in menu
+        }
+
         if (isInMenu) return;
         // Get smooth velocity.
         Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
