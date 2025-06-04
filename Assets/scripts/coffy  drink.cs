@@ -6,6 +6,7 @@ using TMPro;
 public class CoffyDrink : MonoBehaviour
 {
     private TextMeshProUGUI Textu;
+
     private bool isInRange = false;
     public float jumpAmount;
     public MovementScaler scaler;
@@ -15,6 +16,8 @@ public class CoffyDrink : MonoBehaviour
     {
         Textu = GameObject.Find("uii/tooltip").GetComponent<TextMeshProUGUI>();
         scaler= GameObject.Find("First Person Controller").GetComponent<MovementScaler>() ;
+        
+
     }
 
 
@@ -34,7 +37,7 @@ public class CoffyDrink : MonoBehaviour
         else if (isInRange)
         {
             Textu.text = "press E to drink";
-            Debug.Log("tool"+isInRange);
+            Debug.Log("tool"+isInRange+Textu.text);
         }
         else
         {
@@ -53,6 +56,8 @@ public class CoffyDrink : MonoBehaviour
             //scaler.scale = scaler.scale+ sizeAmount;
             scaler.jumpMultiplier = scaler.jumpMultiplier + jumpAmount;
             transform.position = originalpos;
+            GetComponent<Collider>().enabled = true;
+            Textu.text = "";
             Destroy(this);
             
         }

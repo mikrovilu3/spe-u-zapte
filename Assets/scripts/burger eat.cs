@@ -5,6 +5,7 @@ using TMPro;
 
 public class BurgerEat : MonoBehaviour
 {
+    private TextMeshProUGUI Textt;
     private TextMeshProUGUI Textu;
     private bool isInRange = false;
     public float sizeAmount;
@@ -15,6 +16,7 @@ public class BurgerEat : MonoBehaviour
     {
         scaler = GameObject.Find("First Person Controller").GetComponent<MovementScaler>();
         Textu = GameObject.Find("uii/tooltip").GetComponent<TextMeshProUGUI>();
+        Textt = GameObject.Find("uii/Sum").GetComponent<TextMeshProUGUI>();
     }
 
 
@@ -54,6 +56,7 @@ public class BurgerEat : MonoBehaviour
             originalscale = scaler.scale;
             i = 0;
             GetComponent<MeshRenderer>().enabled = false;
+            Textt.text = "scale: " + (originalscale + sizeAmount).ToString();
             Invoke(nameof(GROW), 0.1f);
         }
         else { Invoke(nameof(EAT), 0.1f); }
@@ -65,6 +68,7 @@ public class BurgerEat : MonoBehaviour
         scaler.scale =Mathf.Lerp(originalscale,originalscale+sizeAmount,i);
         if (i > 1)
         {
+            Textu.text = "";
             Destroy(gameObject);
         }
         else { Invoke(nameof(GROW), 0.1f); }
