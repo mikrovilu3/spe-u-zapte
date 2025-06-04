@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class CoffyDrink : MonoBehaviour
 {
 
-
+    private bool isInRange = false;
     public float jumpAmount;
     public MovementScaler scaler;
     private Vector3 originalpos; 
@@ -16,9 +16,9 @@ public class CoffyDrink : MonoBehaviour
     }
 
 
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E)&&isInRange)
         {
 
 
@@ -29,7 +29,7 @@ public class CoffyDrink : MonoBehaviour
             GetComponent<Collider>().enabled = false;
 
         }
-        else
+        else if (isInRange)
         {
 
 
@@ -38,7 +38,7 @@ public class CoffyDrink : MonoBehaviour
     private void EAT (){
 
         i = i+ 0.1f;
-        transform.position = Vector3.Lerp(originalpos, scaler.gameObject.transform.GetChild(0).position-new Vector3(0,-1,0), i);
+        transform.position = Vector3.Lerp(originalpos, scaler.gameObject.transform.GetChild(0).position-new Vector3(0,1,0), i);
         if (i > 1)
         {
             //Debug.Log(scaler.scale + "  " + (scaler.scale + sizeAmount));
@@ -61,5 +61,13 @@ public class CoffyDrink : MonoBehaviour
             Destroy(gameObject);
         }
         else { Invoke(nameof(GROW), 0.1f); }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        isInRange = true;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        isInRange = false;
     }
 }
