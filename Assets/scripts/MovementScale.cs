@@ -36,7 +36,7 @@ public class MovementScaler : MonoBehaviour
     void Update()
     {
         transform.localScale = new Vector3(scale, scale, scale);
-        movment.speed = 5*scale;
+        movment.speed = (2*scale)+3;
         movment.runSpeed = 9*scale; 
         Jump.jumpStrength = 2*scale*jumpMultiplier;
         Crouch.movementSpeed = 2*scale;
