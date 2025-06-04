@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class BurgerEat : MonoBehaviour
 {
-
+    private TextMeshProUGUI Textu;
     private bool isInRange = false;
     public float sizeAmount;
     public MovementScaler scaler;
@@ -13,7 +14,7 @@ public class BurgerEat : MonoBehaviour
     void Start()
     {
         scaler = GameObject.Find("First Person Controller").GetComponent<MovementScaler>();
-
+        Textu = GameObject.Find("uii/tooltip").GetComponent<TextMeshProUGUI>();
     }
 
 
@@ -32,10 +33,16 @@ public class BurgerEat : MonoBehaviour
         }
         else if (isInRange)
         {
-
+            Textu.text = "press E to eat";
 
         }
-    }        float i ;
+        else
+        {
+            Textu.text = "";
+        }
+
+    }
+    float i ;
     private void EAT (){
 
         i = i+ 0.1f;

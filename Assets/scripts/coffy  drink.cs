@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class CoffyDrink : MonoBehaviour
 {
-
+    private TextMeshProUGUI Textu;
     private bool isInRange = false;
     public float jumpAmount;
     public MovementScaler scaler;
@@ -12,7 +13,8 @@ public class CoffyDrink : MonoBehaviour
     private float originaljump;    
     void Start()
     {
-        scaler = GameObject.Find("First Person Controller").GetComponent<MovementScaler>();
+        Textu = GameObject.Find("uii/tooltip").GetComponent<TextMeshProUGUI>();
+        scaler= GameObject.Find("First Person Controller").GetComponent<MovementScaler>() ;
     }
 
 
@@ -31,9 +33,15 @@ public class CoffyDrink : MonoBehaviour
         }
         else if (isInRange)
         {
-
-
+            Textu.text = "press E to drink";
+            Debug.Log("tool"+isInRange);
         }
+        else
+        {
+            Textu.text = "";
+            Debug.Log("nooo"+isInRange);
+        }
+
     }        float i ;
     private void EAT (){
 
@@ -43,25 +51,15 @@ public class CoffyDrink : MonoBehaviour
         {
             //Debug.Log(scaler.scale + "  " + (scaler.scale + sizeAmount));
             //scaler.scale = scaler.scale+ sizeAmount;
-            originaljump = scaler.jumpMultiplier;
-            i = 0;
-            GetComponent<MeshRenderer>().enabled = false;
-            Invoke(nameof(GROW), 0.1f);
+            scaler.jumpMultiplier = scaler.jumpMultiplier + jumpAmount;
+            transform.position = originalpos;
+            Destroy(this);
+            
         }
         else { Invoke(nameof(EAT), 0.1f); }
         
     }
-    private void GROW()
-    {
-        i = i+ 0.1f;
-        scaler.jumpMultiplier =Mathf.Lerp(originaljump,originaljump +jumpAmount,i);
-        Debug.Log("sogme boi"+ scaler.jumpMultiplier +" "+ Mathf.Lerp(originaljump, originaljump + jumpAmount, i));
-        if (i > 1)
-        {
-            Destroy(gameObject);
-        }
-        else { Invoke(nameof(GROW), 0.1f); }
-    }
+    
     private void OnTriggerEnter(Collider other)
     {
         isInRange = true;
