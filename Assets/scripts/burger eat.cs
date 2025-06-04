@@ -39,17 +39,9 @@ public class BurgerEat : MonoBehaviour
             Textu.text = "press E to eat";
 
         }
-        else
+        else 
         {
-            Textu.text = "";
-        }
-        if ((transform.position - scaler.gameObject.transform.position).magnitude < range)
-        {
-            Textu.text = "press E to eattttttttttttttt";
-        }
-        else
-        {
-            Textu.text = "";
+            Textu.text = "fukc u";
         }
     }
     float i ;
@@ -88,5 +80,9 @@ public class BurgerEat : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         isInRange = false;
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        Textu.text = "press E to eat and fuck your mum";
     }
 }
