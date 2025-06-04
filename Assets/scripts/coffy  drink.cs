@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class CoffyDrink : MonoBehaviour
 {
-
+    private TextMeshProUGUI Textu;
     private bool isInRange = false;
     public float jumpAmount;
     public MovementScaler scaler;
@@ -12,7 +13,8 @@ public class CoffyDrink : MonoBehaviour
     private float originaljump;    
     void Start()
     {
-        scaler = GameObject.Find("First Person Controller").GetComponent<MovementScaler>();
+        Textu = GameObject.Find("uii/tooltip").GetComponent<TextMeshProUGUI>();
+        scaler= GameObject.Find("First Person Controller").GetComponent<MovementScaler>() ;
     }
 
 
@@ -31,9 +33,14 @@ public class CoffyDrink : MonoBehaviour
         }
         else if (isInRange)
         {
-
+            Textu.text = "press E to drink";
 
         }
+        else
+        {
+            Textu.text = "";
+        }
+
     }        float i ;
     private void EAT (){
 
