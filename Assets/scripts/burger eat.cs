@@ -33,7 +33,7 @@ public class BurgerEat : MonoBehaviour
         else if (isInRange)
         {
 
-
+            Debug.Log("Diddy");
         }
     }        float i ;
     private void EAT (){
