@@ -37,12 +37,12 @@ public class CoffyDrink : MonoBehaviour
         else if (isInRange)
         {
             Textu.text = "press E to drink";
-            Debug.Log("tool"+isInRange+Textu.text);
+            
         }
         else
         {
             Textu.text = "";
-            Debug.Log("nooo"+isInRange);
+            
         }
 
     }        float i ;

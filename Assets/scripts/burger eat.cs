@@ -11,7 +11,8 @@ public class BurgerEat : MonoBehaviour
     public float sizeAmount;
     public MovementScaler scaler;
     private Vector3 originalpos; 
-    private float originalscale;    
+    private float originalscale;   
+    public float range;
     void Start()
     {
         scaler = GameObject.Find("First Person Controller").GetComponent<MovementScaler>();
@@ -42,7 +43,14 @@ public class BurgerEat : MonoBehaviour
         {
             Textu.text = "";
         }
-
+        if ((transform.position - scaler.gameObject.transform.position).magnitude < range)
+        {
+            Textu.text = "press E to eattttttttttttttt";
+        }
+        else
+        {
+            Textu.text = "";
+        }
     }
     float i ;
     private void EAT (){
