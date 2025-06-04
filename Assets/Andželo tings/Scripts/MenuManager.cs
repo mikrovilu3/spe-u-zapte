@@ -6,24 +6,28 @@ using UnityEngine.UIElements;
 public class MenuManager : MonoBehaviour
 {
     [Header("Ui tings")]
-    public UnityEngine.UI.Button startButton;
-    public UnityEngine.UI.Button quitButton;
     public UnityEngine.UI.Button settingsButton;
     public UnityEngine.UI.Button backToMainMenuButton;
     public UnityEngine.UI.Button backToStartMenuButton;
+    public UnityEngine.UI.Button backToGameButton;
     public UnityEngine.UI.Slider fovSlider;
     public UnityEngine.UI.Slider musicSlider;
     public UnityEngine.UI.Slider sfxSlider;
     public Camera fpsCamera;
+    public FirstPersonLook cam;
 
     [Header("Audio")]
     public AudioSource[] musicSources;
     public AudioSource[] sfxSources;
 
     [Header("Canvas")]
-    public GameObject Canvas1;
-    public GameObject Canvas2;
-    private bool isCanvasSettingsActive = false;
+    public GameObject PauseMenu;
+    public GameObject SettingsMenu;
+    public GameObject InfoPanel;
+
+    private bool inMenu = false;
+    private bool onSettings = false;
+
 
 
     private int currentMusicIndex = 0;
@@ -31,18 +35,23 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
+        
 
-        Canvas2.SetActive(false);
+
+        PauseMenu.SetActive(false);
+        SettingsMenu.SetActive(false);
 
         if (backToStartMenuButton != null)
             backToStartMenuButton.onClick.AddListener(BackToStartMenu);
+        
+        if (backToMainMenuButton != null)
+            backToMainMenuButton.onClick.AddListener(BackToMainMenu);
+
+        if (backToGameButton != null)
+            backToGameButton.onClick.AddListener(BackToGame);
 
         if (settingsButton != null)
-            settingsButton.onClick.AddListener(OnCanvasChange);
-
-        if (backToMainMenuButton != null)
-            backToMainMenuButton.onClick.AddListener(OnCanvasChange);
-
+            settingsButton.onClick.AddListener(OnSettings);
 
         if (fovSlider != null)
             fovSlider.onValueChanged.AddListener(UpdateFOV);
@@ -54,9 +63,15 @@ public class MenuManager : MonoBehaviour
             sfxSlider.onValueChanged.AddListener(UpdateSFXVolume);
     }
 
+    public void OnSettings() { onSettings = true; }
+
     public void BackToStartMenu()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+    public void BackToMainMenu()
+    {
+        onSettings = false;
     }
 
     public void UpdateFOV(float value)
@@ -101,19 +116,51 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void OnCanvasChange()
+    public void BackToGame()
     {
-        isCanvasSettingsActive = !isCanvasSettingsActive;
+        inMenu = false;
+        SettingsMenu.SetActive(false);
+        PauseMenu.SetActive(false);
+    }
 
-        if (isCanvasSettingsActive && Input.GetKey(KeyCode.Tab))
+    public void Update() 
+    {
+        InfoPanel.SetActive(true);
+        if (Input.GetKey(KeyCode.Tab))
         {
-            Canvas1.SetActive(true);
-            Canvas2.SetActive(false);
+            inMenu = true;
+            
+            PauseMenu.SetActive(true);
+            SettingsMenu.SetActive(false);
         }
-        else
+        else { }
+
+        if (onSettings == true)
         {
-            Canvas1.SetActive(false);
-            Canvas2.SetActive(true);
+            SettingsMenu.SetActive(true);
+            PauseMenu.SetActive(false);
         }
+        else { }
+
+        if (onSettings == false && inMenu == true)
+        {
+            SettingsMenu.SetActive(false);
+            PauseMenu.SetActive(true);
+        }
+        else { }
+
+        cam.isInMenu = inMenu!;
+       //if (!inMenu == true)
+       // {
+       //     cam.enabled = true;
+       // }
+//else/ 
+        //{ 
+           // cam.enabled = false;
+       // }
+        
+
+
+
     }
 }
