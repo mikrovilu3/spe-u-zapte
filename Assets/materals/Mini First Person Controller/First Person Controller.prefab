@@ -55,28 +55,16 @@ MonoBehaviour:
   runningAudio: {fileID: 556619294522721544}
   velocityThreshold: 0.01
   landingAudio: {fileID: 5508936939506240807}
-  landingSFX:
-  - {fileID: 8300000, guid: 9fcb6dc763cd0354da305b5de2091287, type: 3}
-  - {fileID: 8300000, guid: ab9637a2491abbf4ca9c9601321cbb88, type: 3}
-  - {fileID: 8300000, guid: 50b288ce0d5ac1e439827c5365c74c31, type: 3}
+  landingSFX: []
   jump: {fileID: 114497868231759342}
   jumpAudio: {fileID: 8216084724610366295}
-  jumpSFX:
-  - {fileID: 8300000, guid: 3888a1e1c52793144a6d07b8c508772e, type: 3}
-  - {fileID: 8300000, guid: 5b26cf3cd5f6b914a80e6d3476caaf86, type: 3}
-  - {fileID: 8300000, guid: b16dc74b7376aca46bd0c6be96c940fa, type: 3}
+  jumpSFX: []
   crouch: {fileID: 114762042097486276}
   crouchStartAudio: {fileID: 2065189708}
   crouchedAudio: {fileID: 3262163692650602188}
   crouchEndAudio: {fileID: 7563556069531604368}
-  crouchStartSFX:
-  - {fileID: 8300000, guid: 9b910aa79c186384cb17f28fad642b0a, type: 3}
-  - {fileID: 8300000, guid: 8a49e3e94b1e34e47bc5f47c5233c5a5, type: 3}
-  - {fileID: 8300000, guid: 3e0e4a1bf1a03c24a85ad855f4be231e, type: 3}
-  crouchEndSFX:
-  - {fileID: 8300000, guid: aac7fe48a39af6e46a2d48c5d2655976, type: 3}
-  - {fileID: 8300000, guid: e6f44b6fce71be34dbbd6d12cb3d3b8c, type: 3}
-  - {fileID: 8300000, guid: 9d46f9a0e3e8be44aa2dc581bd6e0c97, type: 3}
+  crouchStartSFX: []
+  crouchEndSFX: []
 --- !u!1 &2065189706
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,8 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084c01ab381b9da4082c1f84cf70751b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceThreshold: 0.3
-  isGrounded: 0
+  distanceThreshold: 0.15
+  isGrounded: 1
 --- !u!1 &1593727746557118
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,6 +445,7 @@ MonoBehaviour:
   character: {fileID: 4207293392497186}
   sensitivity: 2
   smoothing: 1.5
+  isInMenu: 0
 --- !u!114 &114103969153859672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,7 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  canRun: 0
+  canRun: 1
   runSpeed: 9
   runningKey: 304
 --- !u!114 &114497868231759342
@@ -636,8 +625,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f977f53412d81140ab13b3fca57cca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpStrength: 3
-  groundCheck: {fileID: 114503055206606986}
+  jumpStrength: 2
+  groundCheck: {fileID: 0}
 --- !u!114 &114762042097486276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,11 +640,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 306
-  movement: {fileID: 114963311885979670}
-  movementSpeed: 1
-  headToLower: {fileID: 4490257326247362}
+  movement: {fileID: 0}
+  movementSpeed: 2
+  headToLower: {fileID: 0}
   crouchYHeadPosition: 1
-  colliderToLower: {fileID: 136877096903737240}
+  colliderToLower: {fileID: 0}
 --- !u!114 &401765894552486647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,7 +659,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale: 1
   jumpMultiplier: 0
-  sizeCounter: 1
 --- !u!1 &1963958859065967600
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,8 +864,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 9fcb6dc763cd0354da305b5de2091287, type: 3}
+  m_Resource: {fileID: 8300000, guid: 9fcb6dc763cd0354da305b5de2091287, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1392,8 +1380,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3888a1e1c52793144a6d07b8c508772e, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3888a1e1c52793144a6d07b8c508772e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

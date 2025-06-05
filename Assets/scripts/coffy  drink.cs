@@ -5,7 +5,7 @@ using TMPro;
 
 public class CoffyDrink : MonoBehaviour
 {
-    private TextMeshProUGUI Textu;
+    private tooltipwarden Textuw;
 
     private bool isInRange = false;
     public float jumpAmount;
@@ -14,7 +14,7 @@ public class CoffyDrink : MonoBehaviour
     private float originaljump;    
     void Start()
     {
-        Textu = GameObject.Find("uii/tooltip").GetComponent<TextMeshProUGUI>();
+        Textuw = GameObject.Find("uii/tooltip").GetComponent<tooltipwarden>();
         scaler= GameObject.Find("First Person Controller").GetComponent<MovementScaler>() ;
         
 
@@ -34,16 +34,6 @@ public class CoffyDrink : MonoBehaviour
             GetComponent<Collider>().enabled = false;
 
         }
-        else if (isInRange)
-        {
-            Textu.text = "press E to drink";
-            Debug.Log("tool"+isInRange+Textu.text);
-        }
-        else
-        {
-            Textu.text = "";
-            Debug.Log("nooo"+isInRange);
-        }
 
     }        float i ;
     private void EAT (){
@@ -57,7 +47,7 @@ public class CoffyDrink : MonoBehaviour
             scaler.jumpMultiplier = scaler.jumpMultiplier + jumpAmount;
             transform.position = originalpos;
             GetComponent<Collider>().enabled = true;
-            Textu.text = "";
+            Textuw.avalablecoffy =- 1;
             Destroy(this);
             
         }
@@ -68,9 +58,11 @@ public class CoffyDrink : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         isInRange = true;
+        Textuw.avalablecoffy ++;
     }
     private void OnTriggerExit(Collider other)
     {
         isInRange = false;
+        Textuw.avalablecoffy --;
     }
 }
