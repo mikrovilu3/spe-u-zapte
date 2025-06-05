@@ -1,4 +1,5 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitTheDore : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class ExitTheDore : MonoBehaviour
     bool isNearDore = false;
     private float scale1;
     private tooltipwarden Textuw;
-    public string scene;
+    public string scene = "Pēteris_gulamistaba";
 
     void Start()
     {
@@ -19,27 +20,27 @@ public class ExitTheDore : MonoBehaviour
     void Update()
     {
         scale1 = scaler.scale;
-        if (isNearDore && sizeNeededToExit == scale1 && )
+        if (isNearDore && sizeNeededToExit == scale1 && Input.GetKeyDown(KeyCode.E))
         {
-            SceneManager.LoadScene(scene);
+            SceneManager.LoadScene("scene");
         }
     }
 
-    void OnCollisionEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.GameObject = scaler.GameObject)
+        if (other == scaler)
         {
             isNearDore = true;
-            Textuw.avalableExit ++
+            Textuw.avalableExit++;
         }
     }
 
-    void OnCollisionExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
-        if (other.GameObject = scaler.GameObject)
+        if (other == scaler)
         {
             isNearDore = false;
-            Textuw.avalableExit --
+            Textuw.avalableExit--;
         }
     }
 }
