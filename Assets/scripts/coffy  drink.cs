@@ -20,8 +20,7 @@ public class CoffyDrink : MonoBehaviour
         Textu = GameObject.Find("uii/tooltip").GetComponent<TextMeshProUGUI>();
         scaler= GameObject.Find("First Person Controller").GetComponent<MovementScaler>() ;
 
-        coffeeDrink = GetComponent<AudioSource>();
-        coffeeDrink.Play(0);
+        
 
     }
 
@@ -58,7 +57,7 @@ public class CoffyDrink : MonoBehaviour
             transform.position = originalpos;
             GetComponent<Collider>().enabled = true;
             Textu.text = "";
-
+            coffeeDrink.Play(0);
             Destroy(this);
             
         }
