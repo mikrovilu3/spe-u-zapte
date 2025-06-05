@@ -153,3 +153,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeAmount: 1
   scaler: {fileID: 0}
+  range: 0.2

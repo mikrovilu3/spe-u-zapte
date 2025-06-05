@@ -6,16 +6,17 @@ using TMPro;
 public class BurgerEat : MonoBehaviour
 {
     private TextMeshProUGUI Textt;
-    private TextMeshProUGUI Textu;
+    private tooltipwarden Textuw;
     private bool isInRange = false;
     public float sizeAmount;
     public MovementScaler scaler;
     private Vector3 originalpos; 
-    private float originalscale;    
+    private float originalscale;   
+    public float range;
     void Start()
     {
         scaler = GameObject.Find("First Person Controller").GetComponent<MovementScaler>();
-        Textu = GameObject.Find("uii/tooltip").GetComponent<TextMeshProUGUI>();
+        Textuw = GameObject.Find("uii/tooltip").GetComponent<tooltipwarden>();
         Textt = GameObject.Find("uii/Sum").GetComponent<TextMeshProUGUI>();
     }
 
@@ -28,18 +29,11 @@ public class BurgerEat : MonoBehaviour
 
 
             i = 0;
-            Invoke(nameof(EAT), 0.1f);
+            Invoke(nameof(EAT),0.1f);
             originalpos = transform.position;
             GetComponent<Collider>().enabled = false;
 
         }
-        else if (isInRange == true)
-        {
-            Textu.text = "press E to eat";
-
-        }
-        
-
     }
     float i ;
     private void EAT (){
@@ -65,7 +59,7 @@ public class BurgerEat : MonoBehaviour
         scaler.scale =Mathf.Lerp(originalscale,originalscale+sizeAmount,i);
         if (i > 1)
         {
-            Textu.text = "";
+            Textuw.avalableBurgeres =- 1;
             Destroy(gameObject);
         }
         else { Invoke(nameof(GROW), 0.1f); }
@@ -73,12 +67,11 @@ public class BurgerEat : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         isInRange = true;
-        Textu.text = "press E to eat";
+        Textuw.avalableBurgeres ++;
     }
     private void OnTriggerExit(Collider other)
     {
         isInRange = false;
-        if (Textu.text == "press E to eat")
-            Textu.text = "";
+        Textuw.avalableBurgeres --;
     }
 }
