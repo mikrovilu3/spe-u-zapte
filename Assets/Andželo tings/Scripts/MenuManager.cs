@@ -35,9 +35,9 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        
 
 
+        InfoPanel.SetActive(true);
         PauseMenu.SetActive(false);
         SettingsMenu.SetActive(false);
 
@@ -119,17 +119,19 @@ public class MenuManager : MonoBehaviour
     public void BackToGame()
     {
         inMenu = false;
+        InfoPanel.SetActive(true);
         SettingsMenu.SetActive(false);
         PauseMenu.SetActive(false);
     }
 
     public void Update() 
     {
-        InfoPanel.SetActive(true);
+        
         if (Input.GetKey(KeyCode.Tab))
         {
             inMenu = true;
-            
+
+            InfoPanel.SetActive(false);
             PauseMenu.SetActive(true);
             SettingsMenu.SetActive(false);
         }
@@ -150,14 +152,6 @@ public class MenuManager : MonoBehaviour
         else { }
 
         cam.isInMenu = inMenu!;
-       //if (!inMenu == true)
-       // {
-       //     cam.enabled = true;
-       // }
-//else/ 
-        //{ 
-           // cam.enabled = false;
-       // }
         
 
 

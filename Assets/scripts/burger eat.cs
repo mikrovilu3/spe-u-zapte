@@ -28,20 +28,17 @@ public class BurgerEat : MonoBehaviour
 
 
             i = 0;
-            Invoke(nameof(EAT),0.1f);
+            Invoke(nameof(EAT), 0.1f);
             originalpos = transform.position;
             GetComponent<Collider>().enabled = false;
 
         }
-        else if (isInRange)
+        else if (isInRange == true)
         {
             Textu.text = "press E to eat";
 
         }
-        else
-        {
-            Textu.text = "";
-        }
+        
 
     }
     float i ;
@@ -76,9 +73,12 @@ public class BurgerEat : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         isInRange = true;
+        Textu.text = "press E to eat";
     }
     private void OnTriggerExit(Collider other)
     {
         isInRange = false;
+        if (Textu.text == "press E to eat")
+            Textu.text = "";
     }
 }
