@@ -10,13 +10,18 @@ public class CoffyDrink : MonoBehaviour
     private bool isInRange = false;
     public float jumpAmount;
     public MovementScaler scaler;
+    //public GameObject coffeEmpty;
     private Vector3 originalpos; 
-    private float originaljump;    
+    private float originaljump;
+    //public Audio
+    public AudioSource coffeeDrink;
     void Start()
     {
         Textu = GameObject.Find("uii/tooltip").GetComponent<TextMeshProUGUI>();
         scaler= GameObject.Find("First Person Controller").GetComponent<MovementScaler>() ;
-        
+
+        coffeeDrink = GetComponent<AudioSource>();
+        coffeeDrink.Play(0);
 
     }
 
@@ -29,7 +34,7 @@ public class CoffyDrink : MonoBehaviour
 
 
             i = 0;
-            Invoke(nameof(EAT),0.1f);
+            Invoke(nameof(Drink),0.1f);
             originalpos = transform.position;
             GetComponent<Collider>().enabled = false;
 
@@ -39,14 +44,9 @@ public class CoffyDrink : MonoBehaviour
             Textu.text = "press E to drink";
             Debug.Log("tool"+isInRange+Textu.text);
         }
-        else
-        {
-            Textu.text = "";
-            Debug.Log("nooo"+isInRange);
-        }
 
     }        float i ;
-    private void EAT (){
+    private void Drink (){
 
         i = i+ 0.1f;
         transform.position = Vector3.Lerp(originalpos, scaler.gameObject.transform.GetChild(0).position-new Vector3(0,1,0), i);
@@ -58,19 +58,23 @@ public class CoffyDrink : MonoBehaviour
             transform.position = originalpos;
             GetComponent<Collider>().enabled = true;
             Textu.text = "";
+
             Destroy(this);
             
         }
-        else { Invoke(nameof(EAT), 0.1f); }
+        else { Invoke(nameof(Drink), 0.1f); }
         
     }
     
     private void OnTriggerEnter(Collider other)
     {
         isInRange = true;
+        Textu.text = "press E to drink";
     }
     private void OnTriggerExit(Collider other)
     {
         isInRange = false;
+       
+            Textu.text = "";
     }
 }
