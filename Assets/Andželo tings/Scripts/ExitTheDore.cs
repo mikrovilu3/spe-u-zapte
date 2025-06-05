@@ -22,7 +22,7 @@ public class ExitTheDore : MonoBehaviour
         scale1 = scaler.scale;
         if (isNearDore && scale1 <= sizeNeededToExit && Input.GetKey(KeyCode.E))
         {
-            SceneManager.LoadScene(scene);
+            SceneManager.LoadScene("Pēteris_gulamistaba");
         }
     }
 
