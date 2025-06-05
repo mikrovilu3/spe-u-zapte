@@ -5,7 +5,7 @@ public class tooltipwarden : MonoBehaviour
 {
     public int avalableBurgeres=0;
     public int avalablecoffy=0;
-    public int avalableExit=0;
+    public int avalableExit=1;
     private  TextMeshProUGUI Textu;
     private void Start()
     {
