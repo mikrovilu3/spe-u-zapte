@@ -32,6 +32,10 @@ public class CoffyDrink : MonoBehaviour
             Invoke(nameof(Drink),0.1f);
             originalpos = transform.position;
             GetComponent<Collider>().enabled = false;
+            if (this.gameObject.transform.GetChild(0) != null)
+            {
+                Destroy(this.gameObject.transform.GetChild(0).gameObject);
+            }
 
         }
 
@@ -47,7 +51,8 @@ public class CoffyDrink : MonoBehaviour
             scaler.jumpMultiplier = scaler.jumpMultiplier + jumpAmount;
             transform.position = originalpos;
             GetComponent<Collider>().enabled = true;
-            Textuw.avalablecoffy =- 1;
+            if (isInRange) {Textuw.avalablecoffy --; }
+            
             Destroy(this);
             
         }

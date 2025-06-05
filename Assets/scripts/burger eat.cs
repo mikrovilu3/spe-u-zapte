@@ -65,7 +65,8 @@ public class BurgerEat : MonoBehaviour
 
         if (i > 1)
         {
-            Textuw.avalableBurgeres =- 1;
+            if (isInRange) {Textuw.avalableBurgeres --;  }
+            
             Destroy(gameObject);
             
         }
