@@ -64,7 +64,8 @@ public class BurgerEat : MonoBehaviour
         scaler.scale =Mathf.Lerp(originalscale,originalscale+sizeAmount,i);
         if (i > 1)
         {
-            Textuw.avalableBurgeres =- 1;
+            if (isInRange) {Textuw.avalableBurgeres --;  }
+            
             Destroy(gameObject);
             
         }
