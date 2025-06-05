@@ -20,9 +20,9 @@ public class ExitTheDore : MonoBehaviour
     void Update()
     {
         scale1 = scaler.scale;
-        if (isNearDore && sizeNeededToExit == scale1 && Input.GetKeyDown(KeyCode.E))
+        if (isNearDore && scale1 <= sizeNeededToExit && Input.GetKey(KeyCode.E))
         {
-            SceneManager.LoadScene("scene");
+            SceneManager.LoadScene("Pēteris_gulamistaba");
         }
     }
 
