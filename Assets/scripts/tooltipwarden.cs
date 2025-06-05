@@ -16,7 +16,11 @@ public class tooltipwarden : MonoBehaviour
     {
         if (Textu != null)
         {
-            if (avalableBurgeres > 0 && avalablecoffy > 0)
+            if (avalableExit > 0)
+            {
+                Textu.text = "press E to exit";
+            }
+            else if (avalableBurgeres > 0 && avalablecoffy > 0)
             {
                 Textu.text = "press E to eat and drink";
             }
@@ -24,7 +28,7 @@ public class tooltipwarden : MonoBehaviour
             {
                 Textu.text = "press E to eat";
             }
-            else if(avalablecoffy > 0)
+            else if (avalablecoffy > 0)
             {
                 Textu.text = "press E to drink";
             }
