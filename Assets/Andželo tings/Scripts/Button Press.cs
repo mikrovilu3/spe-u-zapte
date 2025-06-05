@@ -10,33 +10,32 @@ public class ButtonPress : MonoBehaviour
     [Range(0f, 1f)]
     public float alpha = 0.5f;
     public float sizeAmount;
-    private float currentSize;
-    //public MovementScale scale;
+    public MovementScaler scaler;
 
     void Start()
     {
         originalPos = transform.localPosition;
-        //scale = 1;
+        scaler.scale = 1f;
     }
 
     void Update()
     {
         if (Physics.CheckSphere(transform.localPosition, sphereRadius))
         {
-            Debug.Log("Deez Nutz");
+            //Debug.Log("Deez Nutz");
             
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
 
             transform.localPosition = pushEndDistance;
-            Debug.Log("Ligma balls");
-            currentSize = sizeAmount;
-            //scale = currentSize;
+            //Debug.Log("Ligma balls");
+             
+            scaler.scale = scaler.scale+ sizeAmount;
 
 
 
@@ -44,7 +43,7 @@ public class ButtonPress : MonoBehaviour
         else
         {
             transform.localPosition = originalPos;
-            Debug.Log("Yo Mama is so fat.");
+            //Debug.Log("Yo Mama is so fat.");
         }
     }
 
