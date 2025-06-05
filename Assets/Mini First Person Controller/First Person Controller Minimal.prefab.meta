@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6761973570ebdee42bdf0f6bd004e4e3
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 174710
+  packageName: Mini First Person Controller
+  packageVersion: 1.1.0
+  assetPath: Assets/Mini First Person Controller/First Person Controller Minimal.prefab
+  uploadId: 442605
