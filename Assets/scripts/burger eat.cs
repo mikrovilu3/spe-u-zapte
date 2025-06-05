@@ -56,7 +56,8 @@ public class BurgerEat : MonoBehaviour
     private void GROW()
     {
         i = i+ 0.1f;
-        scaler.scale =Mathf.Lerp(originalscale,originalscale+sizeAmount,i);
+        scaler.scale = Mathf.Lerp(originalscale, originalscale + sizeAmount, i);
+
         if (i > 1)
         {
             Textuw.avalableBurgeres =- 1;
