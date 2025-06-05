@@ -35,9 +35,9 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        
 
 
+        InfoPanel.SetActive(true);
         PauseMenu.SetActive(false);
         SettingsMenu.SetActive(false);
 
@@ -126,7 +126,7 @@ public class MenuManager : MonoBehaviour
 
     public void Update() 
     {
-        InfoPanel.SetActive(true);
+        
         if (Input.GetKey(KeyCode.Tab))
         {
             inMenu = true;
