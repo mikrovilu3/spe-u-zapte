@@ -51,18 +51,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 114963311885979670}
   groundCheck: {fileID: 114503055206606986}
-  stepAudio: {fileID: 0}
-  runningAudio: {fileID: 0}
+  stepAudio: {fileID: 3404824665309619301}
+  runningAudio: {fileID: 556619294522721544}
   velocityThreshold: 0.01
-  landingAudio: {fileID: 0}
+  landingAudio: {fileID: 5508936939506240807}
   landingSFX: []
-  jump: {fileID: 0}
-  jumpAudio: {fileID: 0}
+  jump: {fileID: 114497868231759342}
+  jumpAudio: {fileID: 8216084724610366295}
   jumpSFX: []
-  crouch: {fileID: 0}
-  crouchStartAudio: {fileID: 0}
-  crouchedAudio: {fileID: 0}
-  crouchEndAudio: {fileID: 0}
+  crouch: {fileID: 3774430956015780261}
+  crouchStartAudio: {fileID: 2065189708}
+  crouchedAudio: {fileID: 3262163692650602188}
+  crouchEndAudio: {fileID: 7563556069531604368}
   crouchStartSFX: []
   crouchEndSFX: []
 --- !u!1 &2065189706
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceThreshold: 0.15
-  isGrounded: 1
+  isGrounded: 0
 --- !u!1 &1593727746557118
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf63e5393a2520540843ecf5e8234e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  character: {fileID: 4490257326247362}
   sensitivity: 2
   smoothing: 1.5
   isInMenu: 0
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpStrength: 2
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 114503055206606986}
 --- !u!114 &3774430956015780261
 MonoBehaviour:
   m_ObjectHideFlags: 0
