@@ -27,7 +27,7 @@ public class BurgerEat : MonoBehaviour
         {
 
 
-
+            isInRange = false;
             i = 0;
             Invoke(nameof(EAT),0.1f);
             originalpos = transform.position;
