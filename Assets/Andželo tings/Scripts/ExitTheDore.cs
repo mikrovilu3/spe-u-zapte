@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class ExitTheDore : MonoBehaviour
 {
-    public int sizeNeededToExit;
+    public float sizeNeededToExit = 1;
     public MovementScaler scaler;
     bool isNearDore = false;
     private float scale1;
@@ -16,31 +16,37 @@ public class ExitTheDore : MonoBehaviour
         Textuw = GameObject.Find("uii/tooltip").GetComponent<tooltipwarden>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         scale1 = scaler.scale;
-        if (isNearDore && scale1 <= sizeNeededToExit && Input.GetKey(KeyCode.E))
+
+        if (isNearDore)
         {
-            SceneManager.LoadScene("Pēteris_gulamistaba");
+
+            if (scale1 <= sizeNeededToExit && Input.GetKeyDown(KeyCode.E) && scale1 >= sizeNeededToExit)
+            {
+                SceneManager.LoadScene(scene);
+            }
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other == scaler)
+        if (other.gameObject == scaler.gameObject)
         {
             isNearDore = true;
-            Textuw.avalableExit++;
+            Textuw.avalableExit++; // tooltipwarden handles what to show
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other == scaler)
+        if (other.gameObject == scaler.gameObject)
         {
             isNearDore = false;
             Textuw.avalableExit--;
         }
     }
+
+
 }
