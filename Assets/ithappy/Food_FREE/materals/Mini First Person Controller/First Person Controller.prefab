@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceThreshold: 0.15
-  isGrounded: 1
+  isGrounded: 0
 --- !u!1 &1593727746557118
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,7 +626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpStrength: 2
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 114503055206606986}
 --- !u!114 &114762042097486276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,11 +640,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 306
-  movement: {fileID: 0}
+  movement: {fileID: 114963311885979670}
   movementSpeed: 2
-  headToLower: {fileID: 0}
+  headToLower: {fileID: 4490257326247362}
   crouchYHeadPosition: 1
-  colliderToLower: {fileID: 0}
+  colliderToLower: {fileID: 136877096903737240}
 --- !u!114 &401765894552486647
 MonoBehaviour:
   m_ObjectHideFlags: 0
