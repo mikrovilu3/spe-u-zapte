@@ -39,6 +39,6 @@ public class tooltipwarden : MonoBehaviour
         {
             Debug.LogWarning("Multiple food items avalable at the same time");
         }
-        Debug.Log("penis"+avalableBurgeres+"boty"+avalablecoffy);
+        
     }
 }
