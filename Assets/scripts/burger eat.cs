@@ -28,7 +28,7 @@ public class BurgerEat : MonoBehaviour
         {
 
 
-
+            isInRange = false;
             i = 0;
             Invoke(nameof(EAT),0.1f);
             originalpos = transform.position;
@@ -52,7 +52,7 @@ public class BurgerEat : MonoBehaviour
             originalscale = scaler.scale;
             i = 0;
             GetComponent<MeshRenderer>().enabled = false;
-            Textt.text = "scale: " + (originalscale + sizeAmount).ToString();
+            Textt.text =(originalscale + sizeAmount).ToString();
             Invoke(nameof(GROW), 0.1f);
         }
         else { Invoke(nameof(EAT), 0.1f); }
