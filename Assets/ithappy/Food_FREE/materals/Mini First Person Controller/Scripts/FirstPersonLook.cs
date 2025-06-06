@@ -27,7 +27,7 @@ public class FirstPersonLook : MonoBehaviour
     {
         if (isInMenu)
         {
-            Cursor.lockState = CursorLockMode.Confined; // Confined when in menu
+            Cursor.lockState = CursorLockMode.None; // Confined when in menu
         }
         else
         {

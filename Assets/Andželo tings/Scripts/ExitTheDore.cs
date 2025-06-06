@@ -26,6 +26,9 @@ public class ExitTheDore : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && scale1 >= sizeNeededToExit)
             {
                 SceneManager.LoadScene(scene);
+            }else if (Input.GetKeyDown(KeyCode.E))
+            {
+                Textuw.avalableExit = -1;
             }
         }
     }
@@ -35,7 +38,7 @@ public class ExitTheDore : MonoBehaviour
         if (other.gameObject == scaler.gameObject)
         {
             isNearDore = true;
-            Textuw.avalableExit++;
+            Textuw.avalableExit=1;
         }
     }
 
@@ -44,7 +47,7 @@ public class ExitTheDore : MonoBehaviour
         if (other.gameObject == scaler.gameObject)
         {
             isNearDore = false;
-            Textuw.avalableExit--;
+            Textuw.avalableExit=0;
         }
     }
 
