@@ -23,10 +23,10 @@ public class ExitTheDore : MonoBehaviour
         if (isNearDore)
         {
 
-            if (scale1 <= sizeNeededToExit && Input.GetKeyDown(KeyCode.E) && scale1 >= sizeNeededToExit)
-            {
+            if ( Input.GetKeyDown(KeyCode.E) && scale1 >= sizeNeededToExit)           {
                 SceneManager.LoadScene(scene);
             }
+            else if (Input.GetKeyDown(KeyCode.E)){ Debug.Log(scale1 + " " + sizeNeededToExit); }
         }
     }
 
