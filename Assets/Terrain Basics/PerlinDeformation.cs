@@ -9,14 +9,26 @@ public class MeshSubdivideAndDeform : MonoBehaviour
     [Header("Subdivision Settings")]
     public int subdivisions = 2;
 
-    [Header("Perlin Noise Settings")]
+    [Header("3D Perlin Noise Settings")]
     public float noiseScale = 0.5f;
     public float noiseSpeed = 1f;
     public float noiseStrength = 0.01f;
-    public Vector2 noiseOffset = Vector2.zero;
+    public Vector3 noiseOffset = Vector3.zero;
     public bool flipValues = false;
-    public Vector2 waveDirection = new Vector2(1f, 1f);
-    public Vector2 waveDirection2 = new Vector2(1f, 1f);
+    public Vector3 waveDirection = new Vector3(1f, 1f, 0.5f);
+    public Vector3 waveDirection2 = new Vector3(-0.5f, 1f, 1f);
+
+    [Header("3D Noise Controls")]
+    public float timeScale = 0.1f; // Controls how fast the 3D noise evolves
+    public bool useTimeAsThirdDimension = true; // Use time for Z dimension in noise
+    public float staticZOffset = 0f; // Static Z offset if not using time
+
+    [Header("Chaos Noise Settings")]
+    public bool enableChaosNoise = true;
+    public float chaosStrength = 0.005f;
+    public float chaosFrequency = 10f; // Higher = more rapid changes
+    public Vector3 chaosScale = new Vector3(1f, 1f, 1f); // Per-axis chaos scaling
+    public bool useVertexIndexForChaos = true; // Use vertex index for consistent chaos per vertex
 
     [Header("Performance Settings")]
     [Range(1, 10)]
@@ -36,6 +48,7 @@ public class MeshSubdivideAndDeform : MonoBehaviour
     // Cached calculations
     private float timeFactor;
     private float noiseStrengthMultiplier;
+    private float chaosStrengthMultiplier;
 
     void Start()
     {
@@ -55,6 +68,7 @@ public class MeshSubdivideAndDeform : MonoBehaviour
 
         hasHeightGradient = heightGradient != null;
         noiseStrengthMultiplier = flipValues ? -noiseStrength : noiseStrength;
+        chaosStrengthMultiplier = flipValues ? -chaosStrength : chaosStrength;
     }
 
     void Update()
@@ -70,8 +84,9 @@ public class MeshSubdivideAndDeform : MonoBehaviour
 
             // Update noise strength multiplier if flip toggle changed
             noiseStrengthMultiplier = flipValues ? -noiseStrength : noiseStrength;
+            chaosStrengthMultiplier = flipValues ? -chaosStrength : chaosStrength;
 
-            ApplyPerlinNoise();
+            Apply3DPerlinNoise();
 
             if (hasHeightGradient)
                 ApplyVertexColorsFromHeight();
@@ -129,38 +144,111 @@ public class MeshSubdivideAndDeform : MonoBehaviour
         return newIndex;
     }
 
-    void ApplyPerlinNoise()
+    // 3D Perlin noise implementation using Unity's built-in noise with layering
+    float PerlinNoise3D(float x, float y, float z)
     {
-        // Use pre-allocated array instead of creating new one
+        // Unity doesn't have built-in 3D Perlin noise, so we layer 2D noise
+        // This creates a pseudo-3D effect by combining multiple 2D samples
+        float xy = Mathf.PerlinNoise(x, y);
+        float xz = Mathf.PerlinNoise(x, z);
+        float yz = Mathf.PerlinNoise(y, z);
+
+        // Average the three 2D noise values to simulate 3D
+        return (xy + xz + yz) / 3f;
+    }
+
+    // Generate chaos noise for additional randomness
+    Vector3 GenerateChaosNoise(int vertexIndex, Vector3 worldPosition)
+    {
+        if (!enableChaosNoise) return Vector3.zero;
+
+        // Create seeds based on vertex index and time for consistent but evolving chaos
+        float seed = useVertexIndexForChaos ? vertexIndex * 0.1f : 0f;
+        float timeOffset = timeFactor * chaosFrequency;
+
+        // Generate random values using different seeds for each axis
+        float chaosX = (Mathf.Sin((worldPosition.x + seed + timeOffset) * chaosFrequency) +
+                       Mathf.Cos((worldPosition.y + seed * 2f + timeOffset) * chaosFrequency * 1.3f)) * 0.5f;
+
+        float chaosY = (Mathf.Sin((worldPosition.y + seed * 3f + timeOffset) * chaosFrequency * 1.1f) +
+                       Mathf.Cos((worldPosition.z + seed + timeOffset) * chaosFrequency * 0.9f)) * 0.5f;
+
+        float chaosZ = (Mathf.Sin((worldPosition.z + seed * 2f + timeOffset) * chaosFrequency * 0.8f) +
+                       Mathf.Cos((worldPosition.x + seed * 4f + timeOffset) * chaosFrequency * 1.2f)) * 0.5f;
+
+        return new Vector3(
+            chaosX * chaosScale.x * chaosStrengthMultiplier,
+            chaosY * chaosScale.y * chaosStrengthMultiplier,
+            chaosZ * chaosScale.z * chaosStrengthMultiplier
+        );
+    }
+
+    void Apply3DPerlinNoise()
+    {
         int vertexCount = originalVertices.Length;
 
-        // Cache wave direction calculations
-        float waveDir1X = timeFactor * waveDirection.x + noiseOffset.x;
-        float waveDir1Y = timeFactor * waveDirection.y + noiseOffset.y;
-        float waveDir2X = timeFactor * waveDirection2.x + noiseOffset.x;
-        float waveDir2Y = timeFactor * waveDirection2.y + noiseOffset.y;
+        // Calculate 3D wave directions with time factor
+        Vector3 waveDir1 = timeFactor * waveDirection + noiseOffset;
+        Vector3 waveDir2 = timeFactor * waveDirection2 + noiseOffset;
+
+        // Third dimension for noise (time-based or static)
+        float zDimension1 = useTimeAsThirdDimension ? timeFactor * timeScale : staticZOffset;
+        float zDimension2 = useTimeAsThirdDimension ? timeFactor * timeScale * 1.3f : staticZOffset + 100f; // Offset second layer
 
         for (int i = 0; i < vertexCount; i++)
         {
             Vector3 vertex = originalVertices[i];
 
-            // Cache vertex position calculations
+            // Scale vertex positions
             float vertexXScaled = vertex.x * noiseScale;
+            float vertexYScaled = vertex.y * noiseScale;
             float vertexZScaled = vertex.z * noiseScale;
 
-            float noise = Mathf.PerlinNoise(
-                vertexXScaled + waveDir1X,
-                vertexZScaled + waveDir1Y
+            // Apply 3D noise to Y-axis
+            float noiseY = PerlinNoise3D(
+                vertexXScaled + waveDir1.x,
+                vertexZScaled + waveDir1.y,
+                zDimension1 + waveDir1.z
             );
-
-            float noise2 = Mathf.PerlinNoise(
-                vertexXScaled + waveDir2X,
-                vertexZScaled + waveDir2Y
+            float noiseY2 = PerlinNoise3D(
+                vertexXScaled + waveDir2.x,
+                vertexZScaled + waveDir2.y,
+                zDimension2 + waveDir2.z
             );
+            float centeredNoiseY = ((noiseY + noiseY2) / 2f - 0.5f) * noiseStrengthMultiplier;
+            vertex.y += centeredNoiseY;
 
-            // Optimized noise calculation
-            float centeredNoise = (noise + noise2 - 0.5f) * noiseStrengthMultiplier;
-            vertex.y += centeredNoise;
+            // Apply 3D noise to X-axis
+            float noiseX = PerlinNoise3D(
+                vertexYScaled + waveDir1.y,
+                vertexZScaled + waveDir1.z,
+                zDimension1 + waveDir1.x
+            );
+            float noiseX2 = PerlinNoise3D(
+                vertexYScaled + waveDir2.y,
+                vertexZScaled + waveDir2.z,
+                zDimension2 + waveDir2.x
+            );
+            float centeredNoiseX = ((noiseX + noiseX2) / 2f - 0.5f) * noiseStrengthMultiplier;
+            vertex.x += centeredNoiseX;
+
+            // Apply 3D noise to Z-axis
+            float noiseZ = PerlinNoise3D(
+                vertexXScaled + waveDir1.z,
+                vertexYScaled + waveDir1.x,
+                zDimension1 + waveDir1.y
+            );
+            float noiseZ2 = PerlinNoise3D(
+                vertexXScaled + waveDir2.z,
+                vertexYScaled + waveDir2.x,
+                zDimension2 + waveDir2.y
+            );
+            float centeredNoiseZ = ((noiseZ + noiseZ2) / 2f - 0.5f) * noiseStrengthMultiplier;
+            vertex.z += centeredNoiseZ;
+
+            // Add chaos noise for additional randomness
+            Vector3 chaosOffset = GenerateChaosNoise(i, vertex);
+            vertex += chaosOffset;
 
             workingVertices[i] = vertex;
         }
@@ -168,7 +256,6 @@ public class MeshSubdivideAndDeform : MonoBehaviour
         mesh.vertices = workingVertices;
         mesh.RecalculateNormals();
 
-        // Only update collider if it exists
         if (meshCollider != null)
             meshCollider.sharedMesh = mesh;
     }
