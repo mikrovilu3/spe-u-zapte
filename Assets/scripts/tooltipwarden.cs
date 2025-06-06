@@ -8,6 +8,7 @@ public class tooltipwarden : MonoBehaviour
     public int avalableExit=0;
     public bool tutorial = false;
     private  TextMeshProUGUI Textu;
+    public string goal;
     private void Start()
     {
         Textu= GetComponent<TextMeshProUGUI>();
@@ -39,6 +40,10 @@ public class tooltipwarden : MonoBehaviour
                 Textu.text = "press E to drink";
             }
             else { Textu.text = ""; }
+            }
+            else if(Time.timeSinceLevelLoad < 3)
+            {
+                Textu.text = goal;
             }
         }
         else { Debug.LogError("no text mesh in game object"); }
