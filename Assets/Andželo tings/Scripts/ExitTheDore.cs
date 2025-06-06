@@ -24,7 +24,7 @@ public class ExitTheDore : MonoBehaviour
         {
 
             if (Input.GetKeyDown(KeyCode.E) && scale1 >= sizeNeededToExit)
-            {
+            {   
                 SceneManager.LoadScene(scene);
             }else if (Input.GetKeyDown(KeyCode.E))
             {

@@ -33,7 +33,7 @@ public class CoffyDrink : MonoBehaviour
             Invoke(nameof(Drink),0.1f);
             originalpos = transform.position;
             GetComponent<Collider>().enabled = false;
-            if (this.gameObject.transform.GetChild(0) != null)
+            if (transform.childCount > 0)
             {
                 Destroy(this.gameObject.transform.GetChild(0).gameObject);
             }
