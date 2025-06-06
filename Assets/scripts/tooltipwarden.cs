@@ -60,7 +60,7 @@ public class tooltipwarden : MonoBehaviour
             }
             else if (Time.timeSinceLevelLoad < 3)
             {
-                Textu.text = "you can now escape, but you decide to enjoi jourself";
+                Textu.text = "you can now escape, but you decide to enjoy jourself";
             }
             else
             {
@@ -68,10 +68,7 @@ public class tooltipwarden : MonoBehaviour
             }
         }
         else { Debug.LogError("no text mesh in game object"); }
-        if(avalableBurgeres > 1|| avalablecoffy > 1)
-        {
-            Debug.LogWarning("Multiple food items avalable at the same time");
-        }
+        
         
     }
 }
