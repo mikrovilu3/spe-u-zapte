@@ -11,7 +11,8 @@ public class CoffyDrink : MonoBehaviour
     public float jumpAmount;
     public MovementScaler scaler;
     private Vector3 originalpos; 
-    private float originaljump;    
+    private float originaljump;
+    private bool isDrinking;
     void Start()
     {
         Textuw = GameObject.Find("uii/tooltip").GetComponent<tooltipwarden>();
@@ -23,11 +24,11 @@ public class CoffyDrink : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)&&isInRange)
+        if (Input.GetKeyDown(KeyCode.E)&&isInRange&&!isDrinking)
         {
 
 
-
+            isDrinking = true ;
             i = 0;
             Invoke(nameof(Drink),0.1f);
             originalpos = transform.position;
