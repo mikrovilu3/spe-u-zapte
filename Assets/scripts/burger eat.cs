@@ -18,6 +18,7 @@ public class BurgerEat : MonoBehaviour
         scaler = GameObject.Find("First Person Controller").GetComponent<MovementScaler>();
         Textuw = GameObject.Find("uii/tooltip").GetComponent<tooltipwarden>();
         Textt = GameObject.Find("uii/Sum").GetComponent<TextMeshProUGUI>();
+        
     }
 
 
@@ -32,6 +33,10 @@ public class BurgerEat : MonoBehaviour
             Invoke(nameof(EAT),0.1f);
             originalpos = transform.position;
             GetComponent<Collider>().enabled = false;
+            if (transform.childCount > 0)
+            {
+                Destroy(this.gameObject.transform.GetChild(0).gameObject);
+            }
 
         }
     }
@@ -56,11 +61,14 @@ public class BurgerEat : MonoBehaviour
     private void GROW()
     {
         i = i+ 0.1f;
-        scaler.scale =Mathf.Lerp(originalscale,originalscale+sizeAmount,i);
+        scaler.scale = Mathf.Lerp(originalscale, originalscale + sizeAmount, i);
+
         if (i > 1)
         {
-            Textuw.avalableBurgeres =- 1;
+            if (isInRange) {Textuw.avalableBurgeres --;  }
+            
             Destroy(gameObject);
+            
         }
         else { Invoke(nameof(GROW), 0.1f); }
     }

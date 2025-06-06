@@ -35,15 +35,33 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-
-
         InfoPanel.SetActive(true);
         PauseMenu.SetActive(false);
         SettingsMenu.SetActive(false);
 
+        // ✅ Restore settings from PlayerPrefs
+        if (fpsCamera != null)
+            fpsCamera.fieldOfView = PlayerPrefs.GetFloat("FOV", 60f);
+
+        float musicVol = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        float sfxVol = PlayerPrefs.GetFloat("SFXVolume", 1f);
+
+        if (musicSlider != null)
+            musicSlider.value = musicVol;
+
+        if (sfxSlider != null)
+            sfxSlider.value = sfxVol;
+
+        foreach (var music in musicSources)
+            music.volume = musicVol;
+
+        foreach (var sfx in sfxSources)
+            sfx.volume = sfxVol;
+
+
         if (backToStartMenuButton != null)
             backToStartMenuButton.onClick.AddListener(BackToStartMenu);
-        
+
         if (backToMainMenuButton != null)
             backToMainMenuButton.onClick.AddListener(BackToMainMenu);
 
@@ -77,16 +95,21 @@ public class MenuManager : MonoBehaviour
     public void UpdateFOV(float value)
     {
         if (fpsCamera != null)
-            fpsCamera.fieldOfView = value;
+            fpsCamera.fieldOfView = value * 120f;
+        PlayerPrefs.SetFloat("FOV", value * 120f);
     }
 
     public void UpdateMusicVolume(float value)
     {
+        float adjustedVolume = value > 0f ? Mathf.Pow(value, 1.5f) : 0f;
         foreach (var music in musicSources)
         {
-            music.volume = value;
+            music.volume = adjustedVolume;
         }
+
+        PlayerPrefs.SetFloat("MusicVolume", value);
     }
+
 
     public void UpdateSFXVolume(float value)
     {
@@ -94,8 +117,10 @@ public class MenuManager : MonoBehaviour
         {
             sfx.volume = value;
         }
-    }
 
+        PlayerPrefs.SetFloat("SFXVolume", value);
+
+    }
     public void NextMusic()
     {
         if (musicSources.Length > 0)
@@ -124,9 +149,9 @@ public class MenuManager : MonoBehaviour
         PauseMenu.SetActive(false);
     }
 
-    public void Update() 
+    public void Update()
     {
-        
+
         if (Input.GetKey(KeyCode.Tab))
         {
             inMenu = true;
@@ -152,7 +177,7 @@ public class MenuManager : MonoBehaviour
         else { }
 
         cam.isInMenu = inMenu!;
-        
+
 
 
 

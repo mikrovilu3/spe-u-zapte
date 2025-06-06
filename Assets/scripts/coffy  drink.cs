@@ -29,14 +29,18 @@ public class CoffyDrink : MonoBehaviour
 
 
             i = 0;
-            Invoke(nameof(EAT),0.1f);
+            Invoke(nameof(Drink),0.1f);
             originalpos = transform.position;
             GetComponent<Collider>().enabled = false;
+            if (this.gameObject.transform.GetChild(0) != null)
+            {
+                Destroy(this.gameObject.transform.GetChild(0).gameObject);
+            }
 
         }
 
     }        float i ;
-    private void EAT (){
+    private void Drink (){
 
         i = i+ 0.1f;
         transform.position = Vector3.Lerp(originalpos, scaler.gameObject.transform.GetChild(0).position-new Vector3(0,1,0), i);
@@ -47,11 +51,12 @@ public class CoffyDrink : MonoBehaviour
             scaler.jumpMultiplier = scaler.jumpMultiplier + jumpAmount;
             transform.position = originalpos;
             GetComponent<Collider>().enabled = true;
-            Textuw.avalablecoffy =- 1;
+            if (isInRange) {Textuw.avalablecoffy --; }
+            
             Destroy(this);
             
         }
-        else { Invoke(nameof(EAT), 0.1f); }
+        else { Invoke(nameof(Drink), 0.1f); }
         
     }
     
