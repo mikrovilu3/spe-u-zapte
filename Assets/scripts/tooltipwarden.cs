@@ -5,8 +5,7 @@ public class tooltipwarden : MonoBehaviour
 {
     public int avalableBurgeres=0;
     public int avalablecoffy=0;
-    public int avalableExit=0;
-    public bool tutorial = false;
+    public int avalableExit=1;
     private  TextMeshProUGUI Textu;
     private void Start()
     {
@@ -17,12 +16,7 @@ public class tooltipwarden : MonoBehaviour
     {
         if (Textu != null)
         {
-            if (tutorial) { 
-            if(Time.timeSinceLevelLoad < 3)
-            {
-                Textu.text = "press tab to pause";
-            }
-            else if (avalableExit > 0)
+            if (avalableExit > 0)
             {
                 Textu.text = "press E to exit";
             }
@@ -39,7 +33,6 @@ public class tooltipwarden : MonoBehaviour
                 Textu.text = "press E to drink";
             }
             else { Textu.text = ""; }
-            }
         }
         else { Debug.LogError("no text mesh in game object"); }
         if(avalableBurgeres > 1|| avalablecoffy > 1)
