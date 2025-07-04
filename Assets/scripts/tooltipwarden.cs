@@ -5,8 +5,11 @@ public class tooltipwarden : MonoBehaviour
 {
     public int avalableBurgeres=0;
     public int avalablecoffy=0;
-    public int avalableExit=1;
+    public int avalableExit=0;
+    public bool tutorial = false;
     private  TextMeshProUGUI Textu;
+    public string goal;
+    public bool ending = false;
     private void Start()
     {
         Textu= GetComponent<TextMeshProUGUI>();
@@ -16,29 +19,56 @@ public class tooltipwarden : MonoBehaviour
     {
         if (Textu != null)
         {
-            if (avalableExit > 0)
+            if (tutorial)
             {
-                Textu.text = "press E to exit";
+                if (Time.timeSinceLevelLoad < 3)
+                {
+                    Textu.text = "press tab to pause";
+                }
+                else if (avalableExit > 0)
+                {
+                    Textu.text = "press E to exit";
+                }
+                else if (avalableBurgeres > 0 && avalablecoffy > 0)
+                {
+                    Textu.text = "press E to eat and drink";
+                }
+                else if (avalableBurgeres > 0)
+                {
+                    Textu.text = "press E to eat";
+                }
+                else if (avalablecoffy > 0)
+                {
+                    Textu.text = "press E to drink";
+                }
+                else { Textu.text = ""; }
             }
-            else if (avalableBurgeres > 0 && avalablecoffy > 0)
+            else if (!ending)
             {
-                Textu.text = "press E to eat and drink";
+                if (Time.timeSinceLevelLoad < 3)
+                {
+
+                }
+                else if (avalableExit < 0)
+                {
+                    Textu.text = goal;
+                }
+                else
+                {
+                    Textu.text = "";
+                }
             }
-            else if (avalableBurgeres > 0)
+            else if (Time.timeSinceLevelLoad < 3)
             {
-                Textu.text = "press E to eat";
+                Textu.text = "you can now escape, but you decide to enjoy jourself";
             }
-            else if (avalablecoffy > 0)
+            else
             {
-                Textu.text = "press E to drink";
+                Textu.text = "";
             }
-            else { Textu.text = ""; }
         }
         else { Debug.LogError("no text mesh in game object"); }
-        if(avalableBurgeres > 1|| avalablecoffy > 1)
-        {
-            Debug.LogWarning("Multiple food items avalable at the same time");
-        }
-        Debug.Log("penis"+avalableBurgeres+"boty"+avalablecoffy);
+        
+        
     }
 }

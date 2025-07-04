@@ -13,6 +13,7 @@ public class BurgerEat : MonoBehaviour
     private Vector3 originalpos; 
     private float originalscale;   
     public float range;
+    public bool isEating;
     void Start()
     {
         scaler = GameObject.Find("First Person Controller").GetComponent<MovementScaler>();
@@ -24,11 +25,11 @@ public class BurgerEat : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isInRange)
+        if (Input.GetKeyDown(KeyCode.E) && isInRange && !isEating)
         {
 
-
-            isInRange = false;
+            
+            isEating = true;
             i = 0;
             Invoke(nameof(EAT),0.1f);
             originalpos = transform.position;
@@ -52,7 +53,7 @@ public class BurgerEat : MonoBehaviour
             originalscale = scaler.scale;
             i = 0;
             GetComponent<MeshRenderer>().enabled = false;
-            Textt.text = "scale: " + (originalscale + sizeAmount).ToString();
+            Textt.text =(originalscale + sizeAmount).ToString();
             Invoke(nameof(GROW), 0.1f);
         }
         else { Invoke(nameof(EAT), 0.1f); }
